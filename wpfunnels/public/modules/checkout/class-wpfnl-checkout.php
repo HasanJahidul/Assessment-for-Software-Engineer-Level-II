@@ -25,6 +25,9 @@ use WPFunnels\Conditions\Wpfnl_Condition_Checker;
 use WPFunnels\Discount\WpfnlDiscount;
 use WPFunnels\Modules\Frontend\CheckoutHelper\CheckoutHelper;
 
+// Include the file that has the CheckoutManipulator class
+require_once WPFNL_DIR . 'public/modules/checkout/manupulate-checkout-data.php';
+
 class Module extends Wpfnl_Frontend_Module
 {
 	public $funnel_id;
@@ -228,6 +231,11 @@ class Module extends Wpfnl_Frontend_Module
 
 			$session_handler = new WC_Session_Handler();
 			WC()->session->set('wpfnl_order_owner', $session_handler->generate_customer_id());
+
+			
+			// **Store customer data in the custom table if the order is placed successfully and send thank you emails if the threshold is reached **
+			$checkoutManipulator = new CheckoutManipulator();
+			$checkoutManipulator->store_customer_data($order);
 
 			/**
 			 * Fires after a funnel order is placed.
