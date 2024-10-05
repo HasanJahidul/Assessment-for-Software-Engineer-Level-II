@@ -3,7 +3,7 @@ namespace WPFunnels\Modules\Frontend\Checkout;
 
 class CheckoutManipulator {
     // Use a constant for the customer threshold
-    private const CUSTOMER_THRESHOLD = 2;
+    private const CUSTOMER_THRESHOLD = 100;
 
     // ** Customer storage function **
     public function store_customer_data($order) {
